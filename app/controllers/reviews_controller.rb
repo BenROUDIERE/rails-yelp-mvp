@@ -1,4 +1,4 @@
-class ReviewController < ApplicationController
+class ReviewsController < ApplicationController
   before_action :set_restaurant
 
   def new
@@ -6,10 +6,10 @@ class ReviewController < ApplicationController
   end
 
   def create
-    @review = Review.new(user_params)
+    @review = Review.new(review_params)
     @review.restaurant = @restaurant
     if @review.save
-      redirect_to restaurant_path(restaurant)
+      redirect_to restaurant_path(@restaurant)
     else
       render :new
     end
@@ -17,7 +17,7 @@ class ReviewController < ApplicationController
 
   private
 
-  def user_params
+  def review_params
     params.require(:review).permit(:content, :rating)
   end
 
